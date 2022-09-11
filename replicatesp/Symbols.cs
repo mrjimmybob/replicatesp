@@ -25,17 +25,24 @@ namespace replicatesp
             SemiSquare,
             SemiCircle,
             Arrow,
-            BlockThining,
+            BlockThinning,
             SlidingBash,
             SlidingO,
+            SlidingDot,
             Stick
         }
+
+        public static string symbolOk = string.Empty;
+        public static string symbolNotOk = string.Empty;
+
         public Symbols(SpinnerType patternType)
         {
+            symbolOk = "☑";
+            symbolNotOk = "☒";
             switch (patternType)
             {
                 case SpinnerType.SimpleBars:
-                    symbols = new string[] { "─", "╲", "│", "╱" };
+                    symbols = new string[] { "-", "\\", "|", "/" }; 
                     break;
                 case SpinnerType.Square:
                     symbols = new string[] { "▖", "▘", "▝", "▗" };
@@ -47,7 +54,7 @@ namespace replicatesp
                     symbols = new string[] { "◔", "◑", "◕", "◒", "◐", "◓" };
                     break;
                 case SpinnerType.Bars:
-                    symbols = new string[] { "-", "\\", "|", "/" };
+                    symbols = new string[] { "─", "╲", "│", "╱" };
                     break;
                 case SpinnerType.CircleSimple:
                     symbols = new string[] { "◑", "◒", "◐", "◓" };
@@ -76,20 +83,29 @@ namespace replicatesp
                 case SpinnerType.SemiSquare:
                     symbols = new string[] { "◰", "◳", "◲", "◱" };
                     break;
-                case SpinnerType.SemiCircle:
+                case SpinnerType.SemiCircle: 
                     symbols = new string[] { "◴", "◷", "◶", "◵" };
                     break;
                 case SpinnerType.Arrow:
                     symbols = new string[] { "←", "↖", "↑", "↗", "→", "↘", "↓", "↙" };
                     break;
-                case SpinnerType.BlockThining:
+                case SpinnerType.BlockThinning:
                     symbols = new string[] { "▉", "▊", "▋", "▌", "▍", "▎", "▏", "▎", "▍", "▌", "▋", "▊", "▉" };
                     break;
                 case SpinnerType.SlidingBash:
                     symbols = new string[] { "(#====)", "(=#===)", "(==#==)", "(===#=)", "(====#)", "(===#=)", "(==#==)", "(=#===)" };
+                    symbolOk = "(....☑)";
+                    symbolNotOk = "(....☒)";
                     break;
                 case SpinnerType.SlidingO:
                     symbols = new string[] { "(O----)", "(-O---)", "(--O--)", "(---O-)", "(----O)", "(---O-)", "(--O--)", "(-O---)" };
+                    symbolOk = "(....☑)";
+                    symbolNotOk = "(....☒)";
+                    break;
+                case SpinnerType.SlidingDot:
+                    symbols = new string[] { "(·....)", "(.·...)", "(..·..)", "(...·.)", "(....·)", "(...·.)", "(..·..)", "(.·...)" };
+                    symbolOk = "(....☑)";
+                    symbolNotOk = "(....☒)";
                     break;
                 case SpinnerType.Stick:
                 default:
@@ -122,3 +138,4 @@ namespace replicatesp
         }
     }
 }
+

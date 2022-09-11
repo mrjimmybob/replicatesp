@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.FileIO;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -12,13 +13,15 @@ namespace replicatesp
     {
         int origRow = Console.CursorTop;
         int origCol = Console.CursorLeft;
-        int delay = 10;
+        int delay = 20;
         Symbols symbols;
+        static string symbolEnd = string.Empty;
+        string symbolOk;
+        string symbolNotOk;
         int posX;
         int posY;
         bool abort;
         ConsoleColor color;
-        
 
 
         public Spinner(Symbols.SpinnerType st, ConsoleColor c, int x = 0, int y = 0, int d = 50)
@@ -30,7 +33,9 @@ namespace replicatesp
             abort = false;
             color = c;
             Print();
-        }
+            symbolOk = Symbols.symbolOk;
+            symbolNotOk = Symbols.symbolNotOk;
+    }
 
         public void ChildThreadPrint()
         {
@@ -40,9 +45,21 @@ namespace replicatesp
                 {
                     WriteAt(s, posX, posY);
                     Thread.Sleep(delay);
-                    // if (abort) break;
+                    if (abort) break;
                 }
             } while (!abort);
+            WriteAt(symbolEnd, posX, posY);
+        }
+
+        public void Delete()
+        { 
+            abort = true;
+        }
+    
+        public void Delete(bool error)
+        {
+            abort = true;
+            symbolEnd = error ? Symbols.symbolNotOk : Symbols.symbolOk;
         }
 
         public void Print()
@@ -66,7 +83,7 @@ namespace replicatesp
                 Console.Write(s);
                 Console.SetCursorPosition(previousRow, previousCol);
             }
-            catch (ArgumentOutOfRangeException e)
+            catch 
             {
                 // Ignore errors
             }
